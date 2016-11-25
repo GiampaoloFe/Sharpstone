@@ -16,3 +16,5 @@ open FSharp.Data.JsonExtensions
 (*Load data*)
 let value = JsonValue.Load("C:/Users/mauri/OneDrive/Programmazione1/Sharpstone/SharpStone/Deck1.txt")
 
+for ty in value.AsArray() do
+  printfn "%s" (col?type.AsString())
