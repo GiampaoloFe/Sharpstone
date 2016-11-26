@@ -14,7 +14,9 @@ open FSharp.Data
 open FSharp.Data.JsonExtensions
 
 (*Load data*)
-let value = JsonValue.Load("C:/Users/mauri/OneDrive/Programmazione1/Sharpstone/SharpStone/Deck1.txt")
+type Deck = JsonProvider<"https://raw.githubusercontent.com/Maurizio-Mario/Sharpstone/master/SharpStone/deck1.txt">
+let value = Deck.GetSamples()
+
 
 for ty in value.AsArray() do
   printfn "%s" (col?type.AsString())
