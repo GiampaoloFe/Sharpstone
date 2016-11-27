@@ -17,6 +17,33 @@ open FSharp.Data.JsonExtensions
 type Deck = JsonProvider<"https://raw.githubusercontent.com/Maurizio-Mario/Sharpstone/master/SharpStone/deck1.txt">
 let value = Deck.GetSamples()
 
+// Return every value of the name "Artist" and "Type"
+for col in value do                  //Returns all artists
+  if col.Collectible then
+    printfn "%s" col.Artist
 
-for ty in value.AsArray() do
-  printfn "%s" (col?type.AsString())
+for ty in value do                   //Retuns how many minions           
+  if ty.Type = "MINION" then
+    printfn "%s" ty.Type
+
+value.[1].Type;;                    //Return [1] type
+
+if value.[i].Type = "MINION" then
+    let minDeck1 = value.[i] 
+
+for i in value.[i] do
+    printfn "%s" value
+      
+let rec filter deck key value =
+    match key, value with
+    (key, value) -> 
+         for k in deck do                   //Retuns how many minions           
+            if k.key = "value" then
+                printfn "%s" k.key
+    filter [] " " " "
+                                                
+    
+
+
+
+     
