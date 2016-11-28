@@ -28,20 +28,9 @@ for ty in value do                   //Retuns how many minions
 
 value.[1].Type;;                    //Return [1] type
 
-if value.[i].Type = "MINION" then
-    let minDeck1 = value.[i] 
 
-for i in value.[i] do
-    printfn "%s" value
-      
-let rec filter deck key value =
-    match key, value with
-    (key, value) -> 
-         for k in deck do                   //Retuns how many minions           
-            if k.key = "value" then
-                printfn "%s" k.key
-    filter [] " " " "
-                                                
+(*Create the subDeck1 with only minions*)     
+let minDeck1 = value |> Seq.filter (fun c -> c.Type = "MINION")                                 
     
 
 
