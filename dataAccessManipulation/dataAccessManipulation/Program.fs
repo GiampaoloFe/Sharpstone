@@ -95,7 +95,16 @@ let minDeck3b =
           |> JsonValue.Record
       | _ -> failwith "Unexpected format" )
 
-///minDeck1b.[1]?cost
+minDeck1b.[0]?points
 
-let sub =
-    minDeck2b |> Array.sortBy (fun c -> c.Points)
+// Those are the usable decks already sorted ready for the use.
+// Sort must be part of the selection/fight algorithm at some point.
+
+let minDeck1c =
+    minDeck1b |> Array.sortBy (fun c -> c?points)
+
+let minDeck2c =
+    minDeck2b |> Array.sortBy (fun c -> c?points)
+
+let minDeck3c =
+    minDeck3b |> Array.sortBy (fun c -> c?points)
