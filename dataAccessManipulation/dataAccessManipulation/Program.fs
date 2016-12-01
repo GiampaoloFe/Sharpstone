@@ -35,18 +35,67 @@ for ty in value1 do                   //Retuns how many minions
 value1.[1].Type;;                    //Return [1] type
 
 (*Subset decks with only minions with attack and health <> 0
-The values of health and attack are of type option. See details*)
+The values of health and attack are of type option. See details.
+Use Array.filter to implement the key-adder*)
 let minDeck1 = 
-    value1 |> Seq.filter (fun c -> c.Type = "MINION" && c.Health <> Some 0)
+    value1 |> Array.filter (fun c -> c.Type = "MINION" && c.Health <> Some 0)
 
 let minDeck2 =
-    value2 |> Seq.filter (fun c -> c.Type = "MINION" && c.Health <> Some 0)
+    value2 |> Array.filter (fun c -> c.Type = "MINION" && c.Health <> Some 0)
 
 let minDeck3 =
-    value3 |> Seq.filter (fun c -> c.Type = "MINION" && c.Health <> Some 0)
+    value3 |> Array.filter (fun c -> c.Type = "MINION" && c.Health <> Some 0)
                                  
-    
 
+let minDeck1b = 
+  minDeck1
+  |> Array.map (fun recd ->
+      // To do the calculation, you can access the fields via inferred types.
+      // Since they are <Option>, we must access the value with x.Value. 
+      let points = float recd.Attack.Value / float recd.Health.Value
 
+      // But now we need to look at the underlying value, check that it is
+      // a record and extract the properties, which is an array of key-value pairs
+      match recd.JsonValue with
+      | JsonValue.Record props ->
+          // Append the new property to the existing properties & re-create record
+          Array.append [| "points", JsonValue.Float points |] props
+          |> JsonValue.Record
+      | _ -> failwith "Unexpected format" )
 
-     
+let minDeck2b = 
+  minDeck1
+  |> Array.map (fun recd ->
+      // To do the calculation, you can access the fields via inferred types.
+      // Since they are <Option>, we must access the value with x.Value. 
+      let points = float recd.Attack.Value / float recd.Health.Value
+
+      // But now we need to look at the underlying value, check that it is
+      // a record and extract the properties, which is an array of key-value pairs
+      match recd.JsonValue with
+      | JsonValue.Record props ->
+          // Append the new property to the existing properties & re-create record
+          Array.append [| "points", JsonValue.Float points |] props
+          |> JsonValue.Record
+      | _ -> failwith "Unexpected format" )
+
+let minDeck3b = 
+  minDeck1
+  |> Array.map (fun recd ->
+      // To do the calculation, you can access the fields via inferred types.
+      // Since they are <Option>, we must access the value with x.Value. 
+      let points = float recd.Attack.Value / float recd.Health.Value
+
+      // But now we need to look at the underlying value, check that it is
+      // a record and extract the properties, which is an array of key-value pairs
+      match recd.JsonValue with
+      | JsonValue.Record props ->
+          // Append the new property to the existing properties & re-create record
+          Array.append [| "points", JsonValue.Float points |] props
+          |> JsonValue.Record
+      | _ -> failwith "Unexpected format" )
+
+///minDeck1b.[1]?cost
+
+let sub =
+    minDeck2b |> Array.sortBy (fun c -> c.Points)
